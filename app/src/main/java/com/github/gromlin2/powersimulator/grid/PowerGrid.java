@@ -1,17 +1,16 @@
 package com.github.gromlin2.powersimulator.grid;
 
 import com.github.gromlin2.powersimulator.electricityproducer.ElectricityProducer;
+import java.util.Set;
 
 public final class PowerGrid {
-  private final ElectricityProducer producer1;
-  private final ElectricityProducer producer2;
+  private final Set<ElectricityProducer> producers;
 
-  public PowerGrid(ElectricityProducer producer1, ElectricityProducer producer2) {
-    this.producer1 = producer1;
-    this.producer2 = producer2;
+  public PowerGrid(Set<ElectricityProducer> producers) {
+    this.producers = producers;
   }
 
   public int produceElectricity() {
-    return producer1.produceElectricity() + producer2.produceElectricity();
+    return producers.stream().mapToInt(ElectricityProducer::produceElectricity).sum();
   }
 }
